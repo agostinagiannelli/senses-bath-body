@@ -1,15 +1,26 @@
-let productList = [
-  { sku: 1463555, name: "Aloha Monoi Shower Gel", variant: "coconut", price: 9, image: "senses-aloha-monoi-shower-gel-500ml.jpg" },
-  { sku: 1469365, name: "Flamingo Sunset Shower Gel", variant: "tropical", price: 9, image: "senses-flamingo-sunset-shower-gel-500ml.jpg" },
-  { sku: 1466568, name: "Simply Luxurious Shower Gel", variant: "vanilla", price: 9, image: "senses-simply-luxurious-shower-gel-500ml.jpg" },
-  { sku: 1460963, name: "Simply Luxurious Bubble Bath", variant: "vanilla", price: 11, image: "senses-simply-luxurious-bubble-bath-1000ml.jpg" },
-  { sku: 1460959, name: "Aloha Monoi Bubble Bath", variant: "coconut", price: 11, image: "senses-aloha-monoi-bubble-bath-1000ml.jpg" },
-  { sku: 1468364, name: "Flamingo Sunset Bubble Bath", variant: "tropical", price: 11, image: "senses-flamingo-sunset-bubble-bath-1000ml.jpg" },
-  { sku: 1491568, name: "Flamingo Sunset Body Mist", variant: "tropical", price: 6, image: "senses-flamingo-sunset-body-mist-100ml.jpg" },
-  { sku: 1491601, name: "Simply Luxurious Body Mist", variant: "vanilla", price: 6, image: "senses-simply-luxurious-body-mist-100ml.jpg" },
-  { sku: 1491605, name: "Aloha Monoi Body Mist", variant: "coconut", price: 6, image: "senses-aloha-monoi-body-mist-100ml.jpg" },
-];
-let cart = [];
+// Product list class + new object
+class Product {
+  constructor(sku, name, variant, price, image) {
+      this.sku = sku;
+      this.name = name;
+      this.variant = variant;
+      this.price = price;
+      this.image = image;
+  }
+};
+
+const productList = [];
+
+productList.push(new Product(1463555, "Aloha Monoi Shower Gel", "coconut", 9, "senses-aloha-monoi-shower-gel-500ml.jpg"));
+productList.push(new Product(1469365, "Flamingo Sunset Shower Gel", "tropical", 9, "senses-flamingo-sunset-shower-gel-500ml.jpg"));
+productList.push(new Product(1466568, "Simply Luxurious Shower Gel", "vanilla", 9, "senses-simply-luxurious-shower-gel-500ml.jpg"));
+productList.push(new Product(1460963, "Simply Luxurious Bubble Bath", "vanilla", 11, "senses-simply-luxurious-bubble-bath-1000ml.jpg"));
+productList.push(new Product(1460959, "Aloha Monoi Bubble Bath", "coconut", 11, "senses-aloha-monoi-bubble-bath-1000ml.jpg"));
+productList.push(new Product(1468364, "Flamingo Sunset Bubble Bath", "tropical", 11, "senses-flamingo-sunset-bubble-bath-1000ml.jpg"));
+productList.push(new Product(1491568, "Flamingo Sunset Body Mist", "tropical", 6, "senses-flamingo-sunset-body-mist-100ml.jpg"));
+productList.push(new Product(1491601, "Simply Luxurious Body Mist", "vanilla", 6, "senses-simply-luxurious-body-mist-100ml.jpg"));
+productList.push(new Product(1491605, "Aloha Monoi Body Mist", "coconut", 6, "senses-aloha-monoi-body-mist-100ml.jpg"));
+
 let productGrid = document.getElementById("productGrid");
 
 // Add to cart arrow function
@@ -41,12 +52,6 @@ productList.forEach(item => {
   addToCart.addEventListener("click", () => pushToCart(item.sku));
 });
 
-// Clear cart function
-function fnClearCart() {
-  localStorage.clear();
-  window.location.reload(); // Confirmar si está bien usado
-};
-
 // Cart dropdown
 let cartStorage = localStorage.getItem("cart");
 let cartList = document.getElementById("cartList");
@@ -55,11 +60,12 @@ let cartCount = document.getElementById("cartCount");
 if (cartStorage) {
   cart = JSON.parse(cartStorage);
 } else {
+  cart = [];
   let noProducts = document.createElement("li");
-  noProducts.innerHTML = `No products`;
+  noProducts.innerHTML = `Empty cart`;
   noProducts.className = "dropdown-item";
   cartList.append(noProducts);
-}
+};
 
 cart.forEach(item => {
   let product = document.createElement("li");
@@ -68,7 +74,18 @@ cart.forEach(item => {
   cartList.append(product);
 });
 
+// Clear cart function
+function fnClearCart() {
+  localStorage.clear();
+  window.location.reload(); // Confirmar si está bien usado
+};
+
 if (cartStorage) {
+  // Cart count
+  let lenght = document.createElement("span");
+  lenght.innerHTML = `(${cart.length})`
+  lenght.className = "badge";
+  cartCount.append(lenght);
   // Cart buttons
   let cartButtons = document.createElement("div");
   cartButtons.innerHTML = `
@@ -77,15 +94,12 @@ if (cartStorage) {
   `;
   cartButtons.className = "d-grid gap-2 m-2";
   cartList.append(cartButtons);
-  // Cart count
-  let lenght = document.createElement("span");
-  lenght.innerHTML = `(${cart.length})`
-  lenght.className = "badge";
-  cartCount.append(lenght);
   // Clear cart
   let clearCart = document.getElementById("clearCart");
   clearCart.addEventListener("click", () => fnClearCart());
 } else { };
+
+
 
 // Template
 (function () {
