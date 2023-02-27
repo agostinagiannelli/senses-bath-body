@@ -26,25 +26,18 @@ let cartList = document.getElementById("cartList");
 let cartCount = document.getElementById("cartCount");
 
 const cart = JSON.parse(localStorage.getItem("cart")) || [];
-cart.length === 0 ? fnEmptyCart() : fnFullCart();
+cart.length === 0 ? fnEmptyCart() : fnFetchCart();
 
 // Add to cart arrow function
 const pushToCart = (sku) => {
   let pushToCart = productList.find((item) => item.sku === sku);
   cart.push({ sku: pushToCart.sku, name: pushToCart.name, price: pushToCart.price, image: pushToCart.image });
   localStorage.setItem("cart", JSON.stringify(cart));
+  fnFetchCart();
 };
 
-// Empty cart function
-function fnEmptyCart() {
-  let empty = document.createElement("li");
-  empty.innerHTML = `Your cart is currently empty.`;
-  empty.className = "dropdown-item";
-  cartList.append(empty);
-};
-
-// Full cart function
-function fnFullCart() {
+// Fetch cart function
+function fnFetchCart() {
   // Cart dropdown products
   cart.forEach(item => {
     let product = document.createElement("li");
@@ -62,12 +55,23 @@ function fnFullCart() {
   cartList.append(btnCart);
   // Cart dropdown count
   let lenght = document.createElement("span");
-  lenght.innerHTML = `(${cart.length})`;
-  lenght.className = "badge";
+  lenght.innerHTML = `${cart.length}`;
+  lenght.className = "badge rounded-pill text-bg-light";
   cartCount.append(lenght);
   // Clear cart
   let btnClear = document.getElementById("btnClear");
-  btnClear.addEventListener("click", () => localStorage.clear());
+  btnClear.addEventListener("click", () => {
+    localStorage.clear();
+    fnEmptyCart();
+  });
+};
+
+// Empty cart function
+function fnEmptyCart() {
+  let empty = document.createElement("li");
+  empty.innerHTML = `Your cart is currently empty.`;
+  empty.className = "dropdown-item";
+  cartList.append(empty);
 };
 
 productList.forEach(item => {
