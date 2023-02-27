@@ -38,36 +38,45 @@ const pushToCart = (sku) => {
 
 // Fetch cart function
 function fnFetchCart() {
-  // Cart dropdown products
-  cart.forEach(item => {
-    let product = document.createElement("li");
-    product.innerHTML = `${item.name} > €${item.price}`
-    product.className = "dropdown-item my-2";
-    cartList.append(product);
-  });
-  // Cart dropdown buttons
-  let btnCart = document.createElement("div");
-  btnCart.innerHTML = `
+  if (cart.length === 0) {
+    fnEmptyCart();/*  */
+  } else {
+    cartList.innerHTML = "";
+    cartCount.innerHTML = "";
+    // Cart dropdown products
+    cart.forEach(item => {
+      let product = document.createElement("li");
+      product.innerHTML = `${item.name} · €${item.price}`
+      product.className = "dropdown-item my-2";
+      cartList.append(product);
+    });
+    // Cart dropdown buttons
+    let btnCart = document.createElement("div");
+    btnCart.innerHTML = `
+    <li><hr class="dropdown-divider"></li>
     <button id="btnCheckout" class="btn btn-dark" type="button">Checkout</button>
     <button id="btnClear" class="btn btn-outline-dark" type="button">Clear</button>
     `;
-  btnCart.className = "d-grid gap-2 m-2";
-  cartList.append(btnCart);
-  // Cart dropdown count
-  let lenght = document.createElement("span");
-  lenght.innerHTML = `${cart.length}`;
-  lenght.className = "badge rounded-pill text-bg-light";
-  cartCount.append(lenght);
-  // Clear cart
-  let btnClear = document.getElementById("btnClear");
-  btnClear.addEventListener("click", () => {
-    localStorage.clear();
-    fnEmptyCart();
-  });
+    btnCart.className = "d-grid gap-2 m-2";
+    cartList.append(btnCart);
+    // Cart dropdown count
+    let lenght = document.createElement("span");
+    lenght.innerHTML = `${cart.length}`;
+    lenght.className = "badge rounded-pill text-bg-light";
+    cartCount.append(lenght);
+    // Clear cart
+    let btnClear = document.getElementById("btnClear");
+    btnClear.addEventListener("click", () => {
+      cart.splice(0, cart.length);
+      fnFetchCart();
+    });
+  }
 };
 
 // Empty cart function
 function fnEmptyCart() {
+  cartList.innerHTML = "";
+  cartCount.innerHTML = "";
   let empty = document.createElement("li");
   empty.innerHTML = `Your cart is currently empty.`;
   empty.className = "dropdown-item";
