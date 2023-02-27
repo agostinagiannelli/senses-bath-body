@@ -1,11 +1,11 @@
 // Product list class + new object
 class Product {
   constructor(sku, name, variant, price, image) {
-      this.sku = sku;
-      this.name = name;
-      this.variant = variant;
-      this.price = price;
-      this.image = image;
+    this.sku = sku;
+    this.name = name;
+    this.variant = variant;
+    this.price = price;
+    this.image = image;
   }
 };
 
@@ -22,13 +22,52 @@ productList.push(new Product(1491601, "Simply Luxurious Body Mist", "vanilla", 6
 productList.push(new Product(1491605, "Aloha Monoi Body Mist", "coconut", 6, "senses-aloha-monoi-body-mist-100ml.jpg"));
 
 let productGrid = document.getElementById("productGrid");
+let cartList = document.getElementById("cartList");
+let cartCount = document.getElementById("cartCount");
+
+const cart = JSON.parse(localStorage.getItem("cart")) || [];
+cart.length === 0 ? fnEmptyCart() : fnFullCart();
 
 // Add to cart arrow function
 const pushToCart = (sku) => {
   let pushToCart = productList.find((item) => item.sku === sku);
   cart.push({ sku: pushToCart.sku, name: pushToCart.name, price: pushToCart.price, image: pushToCart.image });
   localStorage.setItem("cart", JSON.stringify(cart));
-  window.location.reload(); // Confirmar si está bien usado
+};
+
+// Empty cart function
+function fnEmptyCart() {
+  let empty = document.createElement("li");
+  empty.innerHTML = `Your cart is currently empty.`;
+  empty.className = "dropdown-item";
+  cartList.append(empty);
+};
+
+// Full cart function
+function fnFullCart() {
+  // Cart dropdown products
+  cart.forEach(item => {
+    let product = document.createElement("li");
+    product.innerHTML = `${item.name} > €${item.price}`
+    product.className = "dropdown-item my-2";
+    cartList.append(product);
+  });
+  // Cart dropdown buttons
+  let btnCart = document.createElement("div");
+  btnCart.innerHTML = `
+    <button id="btnCheckout" class="btn btn-dark" type="button">Checkout</button>
+    <button id="btnClear" class="btn btn-outline-dark" type="button">Clear</button>
+    `;
+  btnCart.className = "d-grid gap-2 m-2";
+  cartList.append(btnCart);
+  // Cart dropdown count
+  let lenght = document.createElement("span");
+  lenght.innerHTML = `(${cart.length})`;
+  lenght.className = "badge";
+  cartCount.append(lenght);
+  // Clear cart
+  let btnClear = document.getElementById("btnClear");
+  btnClear.addEventListener("click", () => localStorage.clear());
 };
 
 productList.forEach(item => {
@@ -39,7 +78,7 @@ productList.forEach(item => {
   <h3>${item.name}</h3>
   <span>${item.variant}</span>
   <div>
-  <button id="addToCart${item.sku}" class="btn btn-outline-light" type="button">Add to cart <i class="bi bi-bag-plus"></i></button>
+  <button id="btnAdd${item.sku}" class="btn btn-outline-light" type="button">Add to cart <i class="bi bi-bag-plus"></i></button>
   </div>
   </div>
   <img class="img-fluid" src="./img/${item.image}">
@@ -48,57 +87,16 @@ productList.forEach(item => {
   product.className = `item col-sm-6 col-md-4 col-lg-4 mb-4 ${item.variant}`;
   productGrid.append(product);
   // Add to cart
-  let addToCart = document.getElementById(`addToCart${item.sku}`);
-  addToCart.addEventListener("click", () => pushToCart(item.sku));
+  let btnAdd = document.getElementById(`btnAdd${item.sku}`);
+  btnAdd.addEventListener("click", () => {
+    pushToCart(item.sku);
+    Toastify({
+      text: "Product added to cart",
+      style: { background: "linear-gradient(to right, #00b09b, #96c93d)" },
+      duration: 3000
+    }).showToast();
+  });
 });
-
-// Cart dropdown
-let cartStorage = localStorage.getItem("cart");
-let cartList = document.getElementById("cartList");
-let cartCount = document.getElementById("cartCount");
-
-if (cartStorage) {
-  cart = JSON.parse(cartStorage);
-} else {
-  cart = [];
-  let noProducts = document.createElement("li");
-  noProducts.innerHTML = `Empty cart`;
-  noProducts.className = "dropdown-item";
-  cartList.append(noProducts);
-};
-
-cart.forEach(item => {
-  let product = document.createElement("li");
-  product.innerHTML = `${item.name} > €${item.price}`
-  product.className = "dropdown-item my-2";
-  cartList.append(product);
-});
-
-// Clear cart function
-function fnClearCart() {
-  localStorage.clear();
-  window.location.reload(); // Confirmar si está bien usado
-};
-
-if (cartStorage) {
-  // Cart count
-  let lenght = document.createElement("span");
-  lenght.innerHTML = `(${cart.length})`
-  lenght.className = "badge";
-  cartCount.append(lenght);
-  // Cart buttons
-  let cartButtons = document.createElement("div");
-  cartButtons.innerHTML = `
-  <button id="checkout" class="btn btn-dark" type="button">Checkout</button>
-  <button id="clearCart" class="btn btn-outline-dark" type="button">Clear</button>
-  `;
-  cartButtons.className = "d-grid gap-2 m-2";
-  cartList.append(cartButtons);
-  // Clear cart
-  let clearCart = document.getElementById("clearCart");
-  clearCart.addEventListener("click", () => fnClearCart());
-} else { };
-
 
 
 // Template
