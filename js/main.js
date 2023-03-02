@@ -1,11 +1,11 @@
 // Product list class + new object
 class Product {
-  constructor(sku, name, variant, price, image) {
+  constructor(sku, name, variant, price, imgSrc) {
     this.sku = sku;
     this.name = name;
     this.variant = variant;
     this.price = price;
-    this.image = image;
+    this.imgSrc = imgSrc;
   }
 };
 
@@ -25,28 +25,75 @@ let productGrid = document.getElementById("productGrid");
 let cartList = document.getElementById("cartList");
 let cartCount = document.getElementById("cartCount");
 
-const cart = JSON.parse(localStorage.getItem("cart")) || [];
-cart.length === 0 ? fnEmptyCart() : fnFetchCart();
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let subtotal = 0;
+cart.length === 0 ? fnEmptyCart() : fnUpdateCart();
+
+productList.forEach(item => {
+  let product = document.createElement("div");
+  product.innerHTML = `
+  <div class="item-wrap fancybox">
+  <div class="product-detail">
+  <h3>${item.name}</h3>
+  <span>${item.variant}</span>
+  <div>
+  <button id="btnAdd${item.sku}" class="btn btn-outline-light" type="button">Add to cart <i class="bi bi-bag-plus"></i></button>
+  </div>
+  </div>
+  <img class="img-fluid" src="./img/${item.imgSrc}" alt="${item.name}">
+  </div>
+  `;
+  product.className = `item col-sm-6 col-md-4 col-lg-4 mb-4 ${item.variant}`;
+  productGrid.append(product);
+  // Add to cart
+  let btnAdd = document.getElementById(`btnAdd${item.sku}`);
+  btnAdd.addEventListener("click", () => {
+    fnAddToCart(item.sku);
+  });
+});
 
 // Add to cart arrow function
-const pushToCart = (sku) => {
-  let pushToCart = productList.find((item) => item.sku === sku);
-  cart.push({ sku: pushToCart.sku, name: pushToCart.name, price: pushToCart.price, image: pushToCart.image });
-  localStorage.setItem("cart", JSON.stringify(cart));
-  fnFetchCart();
+const fnAddToCart = (sku) => {
+  if (cart.find((item) => item.sku == sku)) {
+    Toastify({
+      text: "Already in cart",
+      close: true,
+      style: { background: "linear-gradient(to right, rgb(255, 95, 109), rgb(255, 195, 113))" },
+      duration: 3000
+    }).showToast();
+    return;
+  } else {
+    Toastify({
+      text: "Added to cart",
+      close: true,
+      style: { background: "linear-gradient(to right, rgb(0, 176, 155), rgb(150, 201, 61))" },
+      duration: 3000
+    }).showToast();
+    const newProduct = productList.find((item) => item.sku === sku);
+    cart.push({
+      sku: newProduct.sku,
+      name: newProduct.name,
+      price: newProduct.price,
+      imgSrc: newProduct.imgSrc,
+    });
+    localStorage.setItem("cart", JSON.stringify(cart));
+    fnUpdateCart();
+  }
 };
 
-// Fetch cart function
-function fnFetchCart() {
+// Update cart function
+function fnUpdateCart() {
   if (cart.length === 0) {
-    fnEmptyCart();/*  */
+    fnEmptyCart();
   } else {
     cartList.innerHTML = "";
     cartCount.innerHTML = "";
     // Cart dropdown products
     cart.forEach(item => {
       let product = document.createElement("li");
-      product.innerHTML = `${item.name} · €${item.price}`
+      product.innerHTML = `
+      ${item.name} · €${item.price}
+      `;
       product.className = "dropdown-item my-2";
       cartList.append(product);
     });
@@ -66,11 +113,21 @@ function fnFetchCart() {
     cartCount.append(lenght);
     // Clear cart
     let btnClear = document.getElementById("btnClear");
-    btnClear.addEventListener("click", () => {
-      cart.splice(0, cart.length);
-      fnFetchCart();
-    });
-  }
+    btnClear.addEventListener("click", () => fnClearCart())
+  };
+};
+
+// Clear cart function
+function fnClearCart() {
+  cart.splice(0, cart.length);
+  localStorage.clear();
+  fnUpdateCart();
+  Toastify({
+    text: "Cart cleared",
+    close: true,
+    style: { background: "linear-gradient(to right, rgb(255, 95, 109), rgb(255, 195, 113))" },
+    duration: 3000
+  }).showToast();
 };
 
 // Empty cart function
@@ -83,33 +140,7 @@ function fnEmptyCart() {
   cartList.append(empty);
 };
 
-productList.forEach(item => {
-  let product = document.createElement("div");
-  product.innerHTML = `
-  <div class="item-wrap fancybox">
-  <div class="product-detail">
-  <h3>${item.name}</h3>
-  <span>${item.variant}</span>
-  <div>
-  <button id="btnAdd${item.sku}" class="btn btn-outline-light" type="button">Add to cart <i class="bi bi-bag-plus"></i></button>
-  </div>
-  </div>
-  <img class="img-fluid" src="./img/${item.image}">
-  </div>
-  `;
-  product.className = `item col-sm-6 col-md-4 col-lg-4 mb-4 ${item.variant}`;
-  productGrid.append(product);
-  // Add to cart
-  let btnAdd = document.getElementById(`btnAdd${item.sku}`);
-  btnAdd.addEventListener("click", () => {
-    pushToCart(item.sku);
-    Toastify({
-      text: "Product added to cart",
-      style: { background: "linear-gradient(to right, #00b09b, #96c93d)" },
-      duration: 3000
-    }).showToast();
-  });
-});
+
 
 
 // Template
