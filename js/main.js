@@ -5,65 +5,62 @@ const cart = JSON.parse(localStorage.getItem("cart")) || [];
 cart.length === 0 ? fnEmptyCart() : fnUpdateCart();
 
 // Fetch products with json
-const fetchProducts = async () => {
-  try {
-    const response = await fetch('./json/productList.json');
-    const productList = await response.json();
-    productList.forEach(item => {
-      let productGrid = document.getElementById("productGrid");
-      let product = document.createElement("div");
-      product.innerHTML = `
-      <div class="item-wrap fancybox">
-        <div class="product-detail">
-          <h3>${item.name}</h3>
-          <span>${item.variant}</span>
-          <div>
-            <button id="btnAdd${item.sku}" class="btn btn-outline-light" type="button">Add to cart <i class="bi bi-bag-plus"></i></button>
-          </div>
+fetch('./json/productList.json')
+  .then(response => response.json())
+  .then(productList => fnShowProducts(productList))
+
+function fnShowProducts(productList) {
+  productList.forEach(item => {
+    let productGrid = document.getElementById("productGrid");
+    let product = document.createElement("div");
+    product.innerHTML = `
+    <div class="item-wrap fancybox">
+      <div class="product-detail">
+        <h3>${item.name}</h3>
+        <span>${item.variant}</span>
+        <div>
+          <button id="btnAdd${item.sku}" class="btn btn-outline-light" type="button">Add to cart <i class="bi bi-bag-plus"></i></button>
         </div>
-        <img class="img-fluid" src="./img/${item.imgSrc}" alt="${item.name}">
       </div>
-      `;
-      product.className = `item col-sm-6 col-md-4 col-lg-4 mb-4 ${item.variant}`;
-      productGrid.append(product);
+      <img class="img-fluid" src="./img/${item.imgSrc}" alt="${item.name}">
+    </div>
+    `;
+    product.className = `item col-sm-6 col-md-4 col-lg-4 mb-4 ${item.variant}`;
+    productGrid.append(product);
 
-      // Add to cart button
-      let btnAdd = document.getElementById(`btnAdd${item.sku}`);
-      btnAdd.addEventListener("click", () => { fnAddToCart(item.sku) });
-    });
+    // Add to cart button
+    let btnAdd = document.getElementById(`btnAdd${item.sku}`);
+    btnAdd.addEventListener("click", () => { fnAddToCart(item.sku) });
+  });
 
-    // Add to cart function
-    const fnAddToCart = (sku) => {
-      Toastify({
-        text: "Added to cart",
-        close: true,
-        style: { background: "linear-gradient(to right, rgb(0, 176, 155), rgb(150, 201, 61))" },
-        duration: 3000
-      }).showToast();
-      if (cart.find((item) => item.sku === sku)) {
-        const updatedQty = cart.find((item) => item.sku === sku);
-        updatedQty.qty++;
-        localStorage.setItem("cart", JSON.stringify(cart));
-        fnUpdateCart();
-      } else {
-        const newProduct = productList.find((item) => item.sku === sku);
-        cart.push({
-          sku: newProduct.sku,
-          name: newProduct.name,
-          price: newProduct.price,
-          imgSrc: newProduct.imgSrc,
-          qty: 1,
-        });
-        localStorage.setItem("cart", JSON.stringify(cart));
-        fnUpdateCart();
-      }
-    };
-  } catch (error) {
-    console.log(error);
-  }
+  // Add to cart function
+  const fnAddToCart = (sku) => {
+    Toastify({
+      text: "Added to cart",
+      close: true,
+      position: "center",
+      style: { background: "linear-gradient(to right, rgb(0, 176, 155), rgb(150, 201, 61))" },
+      duration: 3000
+    }).showToast();
+    if (cart.find((item) => item.sku === sku)) {
+      const updatedQty = cart.find((item) => item.sku === sku);
+      updatedQty.qty++;
+      localStorage.setItem("cart", JSON.stringify(cart));
+      fnUpdateCart();
+    } else {
+      const newProduct = productList.find((item) => item.sku === sku);
+      cart.push({
+        sku: newProduct.sku,
+        name: newProduct.name,
+        price: newProduct.price,
+        imgSrc: newProduct.imgSrc,
+        qty: 1,
+      });
+      localStorage.setItem("cart", JSON.stringify(cart));
+      fnUpdateCart();
+    }
+  };
 };
-
-fetchProducts();
 
 // Update cart function
 function fnUpdateCart() {
@@ -73,10 +70,10 @@ function fnUpdateCart() {
     cartList.innerHTML = "";
     cartCount.innerHTML = "";
 
-    // Cart dropdown products
+    // Cart products
     cart.forEach(item => {
       let itemSubtotal = item.price * item.qty;
-      let cartProduct = document.createElement("div");
+      let cartProduct = document.createElement("li");
       cartProduct.innerHTML = `
       <div class="d-flex justify-content-start align-items-center">
         <div class="p-2"><img src="./img/${item.imgSrc}" width="60" alt="${item.name}"></div>
@@ -94,7 +91,7 @@ function fnUpdateCart() {
         </div>
       </div>
       `;
-      cartProduct.className = "dropdown-item";
+      cartProduct.className = "list-group-item";
       cartList.append(cartProduct);
 
       // Reduce qty button
@@ -113,17 +110,16 @@ function fnUpdateCart() {
     // Cart footer
     let totalAmount = 0;
     cart.forEach(item => {
-      totalAmount += item.price*item.qty;
+      totalAmount += item.price * item.qty;
     });
 
-    let cartFooter = document.createElement("div");
+    let cartFooter = document.createElement("li");
     cartFooter.innerHTML = `
-    <li><hr class="dropdown-divider"></li>
-    <li class="text-end">Subtotal: €${totalAmount}</li>
+    <p class="text-center">Subtotal: €${totalAmount}</p>
     <button id="btnCheckout" class="btn btn-dark" type="button">Checkout</button>
     <button id="btnClear" class="btn btn-outline-dark" type="button">Clear</button>
     `;
-    cartFooter.className = "dropdown-item d-grid gap-2";
+    cartFooter.className = "list-group-item d-grid gap-2 mt-2";
     cartList.append(cartFooter);
 
     // Cart count
@@ -131,7 +127,7 @@ function fnUpdateCart() {
     cart.forEach(item => {
       totalQty += item.qty;
     });
-    
+
     let count = document.createElement("span");
     count.innerHTML = `${totalQty}`;
     count.className = "badge rounded-pill text-bg-light";
@@ -148,6 +144,7 @@ const fnIncreaseQty = (sku) => {
   Toastify({
     text: "Quantity updated",
     close: true,
+    position: "center",
     style: { background: "linear-gradient(to right, rgb(0, 176, 155), rgb(150, 201, 61))" },
     duration: 3000
   }).showToast();
@@ -164,6 +161,7 @@ const fnReduceQty = (sku) => {
     Toastify({
       text: "Quantity updated",
       close: true,
+      position: "center",
       style: { background: "linear-gradient(to right, rgb(0, 176, 155), rgb(150, 201, 61))" },
       duration: 3000
     }).showToast();
@@ -180,6 +178,7 @@ const fnDeleteItem = (sku) => {
   Toastify({
     text: "Deleted from cart",
     close: true,
+    position: "center",
     style: { background: "linear-gradient(to right, rgb(255, 95, 109), rgb(255, 195, 113))" },
     duration: 3000
   }).showToast();
@@ -197,6 +196,7 @@ function fnClearCart() {
   Toastify({
     text: "Cart cleared",
     close: true,
+    position: "center",
     style: { background: "linear-gradient(to right, rgb(255, 95, 109), rgb(255, 195, 113))" },
     duration: 3000
   }).showToast();
@@ -208,7 +208,7 @@ function fnEmptyCart() {
   cartCount.innerHTML = "";
   let empty = document.createElement("li");
   empty.innerHTML = `Your cart is currently empty.`;
-  empty.className = "dropdown-item";
+  empty.className = "list-group-item";
   cartList.append(empty);
 };
 
