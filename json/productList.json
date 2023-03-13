@@ -4,62 +4,62 @@
       "name": "Aloha Monoi Shower Gel",
       "variant": "coconut",
       "price": 9,
-      "imgSrc": "senses-aloha-monoi-shower-gel-500ml.jpg"
+      "imgSrc": "senses-aloha-monoi-shower-gel-500ml"
     },
     {
       "sku": 1469365,
       "name": "Flamingo Sunset Shower Gel",
       "variant": "tropical",
       "price": 9,
-      "imgSrc": "senses-flamingo-sunset-shower-gel-500ml.jpg"
+      "imgSrc": "senses-flamingo-sunset-shower-gel-500ml"
     },
     {
       "sku": 1466568,
       "name": "Simply Luxurious Shower Gel",
       "variant": "vanilla",
       "price": 9,
-      "imgSrc": "senses-simply-luxurious-shower-gel-500ml.jpg"
+      "imgSrc": "senses-simply-luxurious-shower-gel-500ml"
     },
     {
       "sku": 1460963,
       "name": "Simply Luxurious Bubble Bath",
       "variant": "vanilla",
       "price": 11,
-      "imgSrc": "senses-simply-luxurious-bubble-bath-1000ml.jpg"
+      "imgSrc": "senses-simply-luxurious-bubble-bath-1000ml"
     },
     {
       "sku": 1460959,
       "name": "Aloha Monoi Bubble Bath",
       "variant": "coconut",
       "price": 11,
-      "imgSrc": "senses-aloha-monoi-bubble-bath-1000ml.jpg"
+      "imgSrc": "senses-aloha-monoi-bubble-bath-1000ml"
     },
     {
       "sku": 1468364,
       "name": "Flamingo Sunset Bubble Bath",
       "variant": "tropical",
       "price": 11,
-      "imgSrc": "senses-flamingo-sunset-bubble-bath-1000ml.jpg"
+      "imgSrc": "senses-flamingo-sunset-bubble-bath-1000ml"
     },
     {
       "sku": 1491568,
       "name": "Flamingo Sunset Body Mist",
       "variant": "tropical",
       "price": 6,
-      "imgSrc": "senses-flamingo-sunset-body-mist-100ml.jpg"
+      "imgSrc": "senses-flamingo-sunset-body-mist-100ml"
     },
     {
       "sku": 1491601,
       "name": "Simply Luxurious Body Mist",
       "variant": "vanilla",
       "price": 6,
-      "imgSrc": "senses-simply-luxurious-body-mist-100ml.jpg"
+      "imgSrc": "senses-simply-luxurious-body-mist-100ml"
     },
     {
       "sku": 1491605,
       "name": "Aloha Monoi Body Mist",
       "variant": "coconut",
       "price": 6,
-      "imgSrc": "senses-aloha-monoi-body-mist-100ml.jpg"
+      "imgSrc": "senses-aloha-monoi-body-mist-100ml"
     }
   ]

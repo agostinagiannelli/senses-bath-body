@@ -22,7 +22,7 @@ function fnShowProducts(productList) {
           <button id="btnAdd${item.sku}" class="btn btn-outline-light" type="button">Add to cart <i class="bi bi-bag-plus"></i></button>
         </div>
       </div>
-      <img class="img-fluid" src="./img/${item.imgSrc}" alt="${item.name}">
+      <img class="img-fluid" src="./img/${item.imgSrc}.jpg" alt="${item.name}">
     </div>
     `;
     product.className = `item col-sm-6 col-md-4 col-lg-4 mb-4 ${item.variant}`;
@@ -76,7 +76,7 @@ function fnUpdateCart() {
       let cartProduct = document.createElement("li");
       cartProduct.innerHTML = `
       <div class="d-flex justify-content-start align-items-center">
-        <div class="p-2"><img src="./img/${item.imgSrc}" width="60" alt="${item.name}"></div>
+        <div class="p-2"><img src="./img/${item.imgSrc}-mini.jpg" width="60" alt="${item.name}"></div>
         <div class="p-2 flex-grow-1 d-flex flex-column">
           <div>${item.name}</div>
           <div class="d-flex justify-content-between align-items-center">
