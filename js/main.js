@@ -1,3 +1,4 @@
+let productGrid = document.getElementById("productGrid");
 let cartList = document.getElementById("cartList");
 let cartCount = document.getElementById("cartCount");
 
@@ -11,10 +12,9 @@ fetch('./json/productList.json')
 
 function fnShowProducts(productList) {
   productList.forEach(item => {
-    let productGrid = document.getElementById("productGrid");
     let product = document.createElement("div");
     product.innerHTML = `
-    <div class="item-wrap fancybox">
+    <a class="item-wrap fancybox">
       <div class="product-detail">
         <h3>${item.name}</h3>
         <span>${item.variant}</span>
@@ -23,7 +23,7 @@ function fnShowProducts(productList) {
         </div>
       </div>
       <img class="img-fluid" src="./img/${item.imgSrc}.jpg" alt="${item.name}">
-    </div>
+    </a>
     `;
     product.className = `item col-sm-6 col-md-4 col-lg-4 mb-4 ${item.variant}`;
     productGrid.append(product);
