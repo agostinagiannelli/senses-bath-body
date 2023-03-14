@@ -1,65 +1,128 @@
-  [
-    {
-      "sku": 1463555,
-      "name": "Aloha Monoi Shower Gel",
-      "variant": "coconut",
-      "price": 9,
-      "imgSrc": "senses-aloha-monoi-shower-gel-500ml"
-    },
-    {
-      "sku": 1469365,
-      "name": "Flamingo Sunset Shower Gel",
-      "variant": "tropical",
-      "price": 9,
-      "imgSrc": "senses-flamingo-sunset-shower-gel-500ml"
-    },
-    {
-      "sku": 1466568,
-      "name": "Simply Luxurious Shower Gel",
-      "variant": "vanilla",
-      "price": 9,
-      "imgSrc": "senses-simply-luxurious-shower-gel-500ml"
-    },
-    {
-      "sku": 1460963,
-      "name": "Simply Luxurious Bubble Bath",
-      "variant": "vanilla",
-      "price": 11,
-      "imgSrc": "senses-simply-luxurious-bubble-bath-1000ml"
-    },
-    {
-      "sku": 1460959,
-      "name": "Aloha Monoi Bubble Bath",
-      "variant": "coconut",
-      "price": 11,
-      "imgSrc": "senses-aloha-monoi-bubble-bath-1000ml"
-    },
-    {
-      "sku": 1468364,
-      "name": "Flamingo Sunset Bubble Bath",
-      "variant": "tropical",
-      "price": 11,
-      "imgSrc": "senses-flamingo-sunset-bubble-bath-1000ml"
-    },
-    {
-      "sku": 1491568,
-      "name": "Flamingo Sunset Body Mist",
-      "variant": "tropical",
-      "price": 6,
-      "imgSrc": "senses-flamingo-sunset-body-mist-100ml"
-    },
-    {
-      "sku": 1491601,
-      "name": "Simply Luxurious Body Mist",
-      "variant": "vanilla",
-      "price": 6,
-      "imgSrc": "senses-simply-luxurious-body-mist-100ml"
-    },
-    {
-      "sku": 1491605,
-      "name": "Aloha Monoi Body Mist",
-      "variant": "coconut",
-      "price": 6,
-      "imgSrc": "senses-aloha-monoi-body-mist-100ml"
-    }
-  ]
+[
+  {
+    "sku": 1491605,
+    "name": "Aloha Monoi Body Mist",
+    "variant": "coconut",
+    "price": 6,
+    "imgSrc": "senses-aloha-monoi-body-mist-100ml"
+  },
+  {
+    "sku": 1460959,
+    "name": "Aloha Monoi Bubble Bath",
+    "variant": "coconut",
+    "price": 11,
+    "imgSrc": "senses-aloha-monoi-bubble-bath-1000ml"
+  },
+  {
+    "sku": 1463555,
+    "name": "Aloha Monoi Shower Gel",
+    "variant": "coconut",
+    "price": 9,
+    "imgSrc": "senses-aloha-monoi-shower-gel-500ml"
+  },
+  {
+    "sku": 1491568,
+    "name": "Flamingo Sunset Body Mist",
+    "variant": "tropical",
+    "price": 6,
+    "imgSrc": "senses-flamingo-sunset-body-mist-100ml"
+  },
+  {
+    "sku": 1468364,
+    "name": "Flamingo Sunset Bubble Bath",
+    "variant": "tropical",
+    "price": 11,
+    "imgSrc": "senses-flamingo-sunset-bubble-bath-1000ml"
+  },
+  {
+    "sku": 1469365,
+    "name": "Flamingo Sunset Shower Gel",
+    "variant": "tropical",
+    "price": 9,
+    "imgSrc": "senses-flamingo-sunset-shower-gel-500ml"
+  },
+  {
+    "sku": 1491599,
+    "name": "Lavender Calm Body Mist",
+    "variant": "lavender",
+    "price": 6,
+    "imgSrc": "senses-lavender-calm-body-mist-100ml"
+  },
+  {
+    "sku": 1463828,
+    "name": "Lavender Calm Bubble Bath",
+    "variant": "lavender",
+    "price": 11,
+    "imgSrc": "senses-lavender-calm-bubble-bath-1000ml"
+  },
+  {
+    "sku": 1458828,
+    "name": "Lavender Calm Hand Wash",
+    "variant": "lavender",
+    "price": 6,
+    "imgSrc": "senses-lavender-calm-hand-wash-250ml"
+  },
+  {
+    "sku": 1465510,
+    "name": "Pure Marine Bubble Bath",
+    "variant": "marine",
+    "price": 11,
+    "imgSrc": "senses-pure-marine-bubble-bath-1000ml"
+  },
+  {
+    "sku": 1458830,
+    "name": "Pure Marine Hand Wash",
+    "variant": "marine",
+    "price": 8,
+    "imgSrc": "senses-pure-marine-hand-wash-250ml"
+  },
+  {
+    "sku": 1458826,
+    "name": "Pure Marine Shower Gel",
+    "variant": "marine",
+    "price": 9,
+    "imgSrc": "senses-pure-marine-shower-gel-500ml"
+  },
+  {
+    "sku": 1460111,
+    "name": "Raspberry Delight Body Mist",
+    "variant": "raspberry",
+    "price": 6,
+    "imgSrc": "senses-raspberry-delight-body-mist-100ml"
+  },
+  {
+    "sku": 1463823,
+    "name": "Raspberry Delight Bubble Bath",
+    "variant": "raspberry",
+    "price": 11,
+    "imgSrc": "senses-raspberry-delight-bubble-bath-1000ml"
+  },
+  {
+    "sku": 1458416,
+    "name": "Raspberry Delight Shower Gel",
+    "variant": "raspberry",
+    "price": 9,
+    "imgSrc": "senses-raspberry-delight-shower-gel-500ml"
+  },
+  {
+    "sku": 1491601,
+    "name": "Simply Luxurious Body Mist",
+    "variant": "vanilla",
+    "price": 6,
+    "imgSrc": "senses-simply-luxurious-body-mist-100ml"
+  },
+  {
+    "sku": 1460963,
+    "name": "Simply Luxurious Bubble Bath",
+    "variant": "vanilla",
+    "price": 11,
+    "imgSrc": "senses-simply-luxurious-bubble-bath-1000ml"
+  },
+  {
+    "sku": 1466568,
+    "name": "Simply Luxurious Shower Gel",
+    "variant": "vanilla",
+    "price": 9,
+    "imgSrc": "senses-simply-luxurious-shower-gel-500ml"
+  }
+]
