@@ -180,7 +180,7 @@ const fnReduceQty = (sku) => {
 // Delete item function
 const fnDeleteItem = (sku) => {
   Toastify({
-    text: "Sure you want to delete? Click for yes",
+    text: "Sure you want to delete? Tap for yes",
     position: "center",
     stopOnFocus: true,
     onClick: function () {
@@ -202,7 +202,7 @@ const fnDeleteItem = (sku) => {
 // Clear cart function
 function fnClearCart() {
   Toastify({
-    text: "Sure you want to delete all items? Click for yes",
+    text: "Sure you want to clear? Tap for yes",
     position: "center",
     stopOnFocus: true,
     onClick: function () {
@@ -233,7 +233,7 @@ function fnEmptyCart() {
 // Checkout function
 function fnCheckout() {
   Toastify({
-    text: "Sure you want to confirm your order? Click for yes",
+    text: "Sure you want to confirm? Tap for yes",
     position: "center",
     stopOnFocus: true,
     onClick: function () {
