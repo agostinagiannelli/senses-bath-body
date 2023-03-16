@@ -6,7 +6,7 @@ const cart = JSON.parse(localStorage.getItem("cart")) || [];
 cart.length === 0 ? fnEmptyCart() : fnUpdateCart();
 
 // Fetch products with json
-fetch('./json/productList.json')
+fetch('./json/products.json')
   .then(response => response.json())
   .then(productList => fnShowProducts(productList))
 
@@ -30,7 +30,9 @@ function fnShowProducts(productList) {
 
     // Add to cart button
     let btnAdd = document.getElementById(`btnAdd${item.sku}`);
-    btnAdd.addEventListener("click", () => { fnAddToCart(item.sku) });
+    btnAdd.addEventListener("click", () => {
+      fnAddToCart(item.sku)
+    });
   });
 
   // Add to cart function
@@ -64,11 +66,7 @@ function fnShowProducts(productList) {
 
 // Update cart function
 function fnUpdateCart() {
-  if (cart.length === 0) {
-    fnEmptyCart();
-  } else {
-    fnFillCart();
-  };
+  cart.length === 0 ? fnEmptyCart() : fnFillCart();
 };
 
 // Fill cart list function
@@ -101,15 +99,21 @@ function fnFillCart() {
 
     // Reduce qty button
     let btnReduceQty = document.getElementById(`btnReduceQty${item.sku}`);
-    btnReduceQty.addEventListener("click", () => { fnReduceQty(item.sku) });
+    btnReduceQty.addEventListener("click", () => {
+      fnReduceQty(item.sku)
+    });
 
     // Increase qty button
     let btnIncreaseQty = document.getElementById(`btnIncreaseQty${item.sku}`);
-    btnIncreaseQty.addEventListener("click", () => { fnIncreaseQty(item.sku) });
+    btnIncreaseQty.addEventListener("click", () => {
+      fnIncreaseQty(item.sku)
+    });
 
     // Delete button
     let btnDelete = document.getElementById(`btnDelete${item.sku}`);
-    btnDelete.addEventListener("click", () => { fnDeleteItem(item.sku) });
+    btnDelete.addEventListener("click", () => {
+      fnDeleteItem(item.sku)
+    });
   });
 
   // Cart footer
@@ -224,6 +228,7 @@ function fnClearCart() {
 function fnEmptyCart() {
   cartList.innerHTML = "";
   cartCount.innerHTML = "";
+
   let empty = document.createElement("li");
   empty.innerHTML = `Your cart is currently empty.`;
   empty.className = "list-group-item";
